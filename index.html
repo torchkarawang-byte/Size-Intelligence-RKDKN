@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bag & Apparel Size Intelligence</title>
+  <meta name="description" content="Bag & Apparel Size Intelligence — Kalkulasi volume, kapasitas, dan rekomendasi ukuran produk." />
+  <meta name="theme-color" content="#060d1a" />
+  <meta http-equiv="Permissions-Policy"
+    content="camera=*, microphone=*, geolocation=*, clipboard-read=*, clipboard-write=*, fullscreen=*" />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="apple-touch-icon" href="/favicon.png" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #060d1a;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    /* ── Loading screen ── */
+    .loading {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 14px;
+      background: radial-gradient(circle at top right, #0d2a1a, #060d1a 45%, #020608);
+      color: #d8f5ec;
+      z-index: 10;
+      text-align: center;
+      padding: 24px;
+      transition: opacity .4s ease;
+    }
+    .loading.fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .logo {
+      width: 64px;
+      height: 64px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #3ecf8e, #4fa6ff);
+      display: grid;
+      place-items: center;
+      color: #04111f;
+      font-weight: 800;
+      font-size: 20px;
+      letter-spacing: -0.5px;
+      box-shadow: 0 0 35px rgba(62, 207, 142, .3);
+    }
+    .loading strong {
+      color: #ffffff;
+      font-size: 18px;
+      letter-spacing: .02em;
+    }
+    .loading .sub {
+      color: #6ee7b7;
+      font-size: 13px;
+    }
+
+    /* ── Main iframe ── */
+    iframe#dashFrame {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+      background: #060d1a;
+      z-index: 5;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Loading overlay -->
+  <div class="loading" id="loading">
+    <div class="logo">SI</div>
+    <strong>Bag &amp; Apparel Size Intelligence</strong>
+    <span class="sub">Kalkulasi volume, kapasitas &amp; ukuran produk</span>
+  </div>
+
+  <!--
+    PENTING: Ini IFRAME, bukan redirect.
+    Ganti src di bawah dengan URL Web App Apps Script kamu.
+    Address bar tetap menampilkan domain Vercel/GitHub Pages kamu.
+  -->
+  <iframe
+    id="dashFrame"
+    src="PASTE_APPS_SCRIPT_URL_DI_SINI"
+    title="Bag & Apparel Size Intelligence Dashboard"
+    allow="camera *; microphone *; geolocation *; clipboard-read *; clipboard-write *; fullscreen *"
+    referrerpolicy="no-referrer-when-downgrade"
+    onload="onFrameLoaded()">
+  </iframe>
+
+  <script>
+    var LOAD_TIMEOUT = 18000;
+    var loadTimer;
+
+    function onFrameLoaded() {
+      var loading = document.getElementById('loading');
+      if (!loading) return;
+      loading.classList.add('fade-out');
+      setTimeout(function () { loading.style.display = 'none'; }, 420);
+      if (loadTimer) clearTimeout(loadTimer);
+    }
+
+    loadTimer = setTimeout(function () {
+      var loading = document.getElementById('loading');
+      if (loading) {
+        loading.classList.add('fade-out');
+        setTimeout(function () { loading.style.display = 'none'; }, 420);
+      }
+    }, LOAD_TIMEOUT);
+  </script>
+</body>
+</html>
